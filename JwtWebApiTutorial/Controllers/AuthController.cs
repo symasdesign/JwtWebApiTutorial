@@ -66,7 +66,8 @@ namespace JwtWebApiTutorial.Controllers {
             claims.Add(new Claim(ClaimTypes.Name, user.Username));
             claims.Add(new Claim(ClaimTypes.Role, "Admin"));
 
-            var token = System.Text.Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value);
+            var secretKey = configuration.GetSection("AppSettings:Token").Value;
+            var token = System.Text.Encoding.UTF8.GetBytes(secretKey);
             var key = new SymmetricSecurityKey(token);  // Package Microsoft.IdentityModel.Tokens
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
