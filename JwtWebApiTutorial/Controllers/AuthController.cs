@@ -64,6 +64,8 @@ namespace JwtWebApiTutorial.Controllers {
         private string CreateToken(User user) {
             var claims = new List<Claim>(); // Claim describes the user, there can be any data, Roles for example
             claims.Add(new Claim(ClaimTypes.Name, user.Username));
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+
             var token = System.Text.Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value);
             var key = new SymmetricSecurityKey(token);  // Package Microsoft.IdentityModel.Tokens
 
